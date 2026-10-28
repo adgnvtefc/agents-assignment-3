@@ -32,8 +32,26 @@ def extension_suffix(accumulated: list[int], prompt_tokens: list[int]) -> list[i
         extension_suffix([1, 2, 3], [1, 2])          -> None
         extension_suffix([], [1, 2])                 -> [1, 2]  (an empty sequence is a prefix of anything)
     """
-    # TODO(student): implement this function.
-    raise NotImplementedError
+    n = len(accumulated)
+    if n > len(prompt_tokens) or prompt_tokens[:n] != accumulated:
+        return None
+    return list(prompt_tokens[n:])
+
+
+def _finish_sequence(
+    tokens: list[int], sampled: list[bool], token_logprobs: list[float]
+) -> TokenSequence | None:
+    if len(tokens) < 2:
+        return None
+    mask = [1 if s else 0 for s in sampled[1:]]
+    if not any(mask):
+        return None
+    return TokenSequence(
+        tokens=list(tokens),
+        mask=mask,
+        logprobs=list(token_logprobs[1:]),
+        advantages=[0.0] * (len(tokens) - 1),
+    )
 
 
 def stitch_trajectory(traj: Trajectory) -> list[TokenSequence]:
@@ -78,8 +96,34 @@ def stitch_trajectory(traj: Trajectory) -> list[TokenSequence]:
 
     Returns: list of TokenSequence (possibly empty).
     """
-    # TODO(student): implement this function.
-    raise NotImplementedError
+    sequences: list[TokenSequence] = []
+    tokens: list[int] = []
+    sampled: list[bool] = []
+    token_logprobs: list[float] = []
+
+    for call in traj.calls:
+        suffix = extension_suffix(tokens, call.prompt_tokens)
+        if suffix is None:
+            seq = _finish_sequence(tokens, sampled, token_logprobs)
+            if seq is not None:
+                sequences.append(seq)
+            tokens, sampled, token_logprobs = [], [], []
+            suffix = list(call.prompt_tokens)
+
+        tokens.extend(suffix)
+        sampled.extend([False] * len(suffix))
+        token_logprobs.extend([0.0] * len(suffix))
+
+        if len(call.completion_logprobs) != len(call.completion_tokens):
+            raise ValueError("completion_logprobs must align with completion_tokens")
+        tokens.extend(call.completion_tokens)
+        sampled.extend([True] * len(call.completion_tokens))
+        token_logprobs.extend(float(lp) for lp in call.completion_logprobs)
+
+    seq = _finish_sequence(tokens, sampled, token_logprobs)
+    if seq is not None:
+        sequences.append(seq)
+    return sequences
 
 
 def trajectory_to_training_sequences(traj: Trajectory, advantage: float) -> list[TokenSequence]:
@@ -88,5 +132,7 @@ def trajectory_to_training_sequences(traj: Trajectory, advantage: float) -> list
     position stays 0.0. (In REINFORCE/GRPO, all tokens the policy generated
     in an episode share the episode-level advantage.)
     """
-    # TODO(student): implement this function.
-    raise NotImplementedError
+    sequences = stitch_trajectory(traj)
+    for seq in sequences:
+        seq.advantages = [float(advantage) if m else 0.0 for m in seq.mask]
+    return sequences
