@@ -1,0 +1,13 @@
+[rollout] WARNING: task textcraft_synth.val.139: episode abandoned after 21 turns and counted as a failure (TypeError: unhashable type: 'dict')
+[rollout] WARNING: task textcraft_synth.val.207: episode abandoned after 15 turns and counted as a failure (TypeError: unhashable type: 'dict')
+{
+  "success_rate": 0.13028169014084506,
+  "pass@4": 0.3380281690140845,
+  "avg_steps": 62.27347417840375,
+  "abandoned_episodes": 2,
+  "num_tasks": 213,
+  "episodes_per_task": 4,
+  "model_path": null,
+  "server": "https://hanmozha--scottyrl-evaluation-serve.us-east.modal.run/v1",
+  "model": "Qwen/Qwen3.5-4B"
+}

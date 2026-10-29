@@ -1,0 +1,2 @@
+[rollout] WARNING: task textcraft_synth.val.139: episode abandoned after 21 turns and counted as a failure (TypeError: unhashable type: 'dict')
+[rollout] WARNING: task textcraft_synth.val.207: episode abandoned after 15 turns and counted as a failure (TypeError: unhashable type: 'dict')

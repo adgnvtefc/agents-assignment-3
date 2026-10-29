@@ -1,0 +1,6 @@
+[rollout] WARNING: task textcraft_synth.val.127: episode abandoned after 54 turns and counted as a failure (HTTPStatusError: Server error '502 Bad Gateway' for url 'https://hanmozha--scottyrl-evaluation-serve.us-east.modal.run/v1/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)
+[rollout] WARNING: task textcraft_synth.val.222: episode abandoned after 30 turns and counted as a failure (HTTPStatusError: Server error '502 Bad Gateway' for url 'https://hanmozha--scottyrl-evaluation-serve.us-east.modal.run/v1/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)
+[rollout] WARNING: task textcraft_synth.val.183: episode abandoned after 52 turns and counted as a failure (HTTPStatusError: Server error '502 Bad Gateway' for url 'https://hanmozha--scottyrl-evaluation-serve.us-east.modal.run/v1/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)

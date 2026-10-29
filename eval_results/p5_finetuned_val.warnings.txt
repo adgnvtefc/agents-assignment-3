@@ -1,0 +1,4 @@
+[rollout] WARNING: task textcraft_synth.val.79: episode abandoned after 11 turns and counted as a failure (TypeError: unhashable type: 'dict')
+[rollout] WARNING: task textcraft_synth.val.446: episode abandoned after 10 turns and counted as a failure (TypeError: unhashable type: 'dict')
+[rollout] WARNING: task textcraft_synth.val.457: episode abandoned after 6 turns and counted as a failure (HTTPStatusError: Server error '502 Bad Gateway' for url 'https://hanmozha--scottyrl-evaluation-serve.us-east.modal.run/v1/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)

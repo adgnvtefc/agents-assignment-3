@@ -1,0 +1,11 @@
+{
+  "success_rate": 0.0,
+  "pass@4": 0.0,
+  "avg_steps": 72.36397058823529,
+  "abandoned_episodes": 1,
+  "num_tasks": 136,
+  "episodes_per_task": 4,
+  "model_path": null,
+  "server": "https://hanmozha--scottyrl-evaluation-serve.us-east.modal.run/v1",
+  "model": "a3"
+}
